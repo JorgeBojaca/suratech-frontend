@@ -1,1 +1,65 @@
 @import "tailwindcss" prefix(st);
+
+/* Drive the `dark:` variant off our <html data-theme> toggle instead of the
+   OS media query, so `st:dark:*` utilities track the same switch as the token
+   swap below. Usage: `st:dark:bg-paper` (prefix first, then the variant). */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/* ── Design tokens ───────────────────────────────────────────────
+   Single source of truth. Dark is the default canvas; light is a
+   pure token swap (same utilities, different values). Components use
+   semantic utilities (st:bg-paper, st:text-ink, st:border-line, …)
+   and never hardcode hex values. */
+@theme {
+  /* Monochrome ramp + single accent — DARK (default) */
+  --color-paper: #0a0a0a; /* near-black canvas */
+  --color-surface: #141414; /* raised panels */
+  --color-ink: #f5f5f5; /* primary text */
+  --color-muted: #a3a3a3; /* secondary text */
+  --color-subtle: #6b7280; /* meta / captions */
+  --color-line: rgb(255 255 255 / 0.1); /* hairline borders */
+  --color-accent: #818cf8; /* interactive / focus */
+}
+
+/* Light = token swap. Applied when the OS prefers light AND the user
+   hasn't pinned dark, or when [data-theme="light"] is set explicitly. */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    color-scheme: light;
+    --color-paper: #fafafa;
+    --color-surface: #ffffff;
+    --color-ink: #0a0a0a;
+    --color-muted: #52525b;
+    --color-subtle: #71717a;
+    --color-line: rgb(0 0 0 / 0.1);
+    --color-accent: #4f46e5;
+  }
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --color-paper: #fafafa;
+  --color-surface: #ffffff;
+  --color-ink: #0a0a0a;
+  --color-muted: #52525b;
+  --color-subtle: #71717a;
+  --color-line: rgb(0 0 0 / 0.1);
+  --color-accent: #4f46e5;
+}
+
+/* Pinning dark explicitly re-asserts the @theme defaults regardless
+   of system preference. */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+  }
+}
