@@ -9,7 +9,11 @@
    Single source of truth. Dark is the default canvas; light is a
    pure token swap (same utilities, different values). Components use
    semantic utilities (st:bg-paper, st:text-ink, st:border-line, …)
-   and never hardcode hex values. */
+   and never hardcode hex values.
+
+   IMPORTANT: the `st` prefix means @theme emits *prefixed* CSS vars
+   (--st-color-*) and utilities read var(--st-color-*). Any override
+   below MUST set the same --st-color-* names, or it won't apply. */
 @theme {
   /* Monochrome ramp + single accent — DARK (default) */
   --color-paper: #0a0a0a; /* near-black canvas */
@@ -22,29 +26,33 @@
 }
 
 /* Light = token swap. Applied when the OS prefers light AND the user
-   hasn't pinned dark, or when [data-theme="light"] is set explicitly. */
+   hasn't pinned dark, or when [data-theme="light"] is set explicitly.
+   Elevation model is inverted from dark: the canvas is white and raised /
+   interactive states step *down* to a soft gray (surface), so hover and
+   elevation stay visible against the white paper. Text softened to
+   zinc-900 (not pure black) for comfortable reading. */
 @media (prefers-color-scheme: light) {
   :root:not([data-theme="dark"]) {
     color-scheme: light;
-    --color-paper: #fafafa;
-    --color-surface: #ffffff;
-    --color-ink: #0a0a0a;
-    --color-muted: #52525b;
-    --color-subtle: #71717a;
-    --color-line: rgb(0 0 0 / 0.1);
-    --color-accent: #4f46e5;
+    --st-color-paper: #ffffff; /* white canvas */
+    --st-color-surface: #f4f4f5; /* zinc-100 — raised / hover tint */
+    --st-color-ink: #18181b; /* zinc-900 — primary text */
+    --st-color-muted: #52525b; /* zinc-600 — secondary (~7:1 on white) */
+    --st-color-subtle: #71717a; /* zinc-500 — meta / captions */
+    --st-color-line: rgb(0 0 0 / 0.1); /* hairline borders */
+    --st-color-accent: #4f46e5; /* indigo-600 */
   }
 }
 
 :root[data-theme="light"] {
   color-scheme: light;
-  --color-paper: #fafafa;
-  --color-surface: #ffffff;
-  --color-ink: #0a0a0a;
-  --color-muted: #52525b;
-  --color-subtle: #71717a;
-  --color-line: rgb(0 0 0 / 0.1);
-  --color-accent: #4f46e5;
+  --st-color-paper: #ffffff;
+  --st-color-surface: #f4f4f5;
+  --st-color-ink: #18181b;
+  --st-color-muted: #52525b;
+  --st-color-subtle: #71717a;
+  --st-color-line: rgb(0 0 0 / 0.1);
+  --st-color-accent: #4f46e5;
 }
 
 /* Pinning dark explicitly re-asserts the @theme defaults regardless
@@ -59,7 +67,7 @@
   }
 
   body {
-    background-color: var(--color-paper);
-    color: var(--color-ink);
+    background-color: var(--st-color-paper);
+    color: var(--st-color-ink);
   }
 }
