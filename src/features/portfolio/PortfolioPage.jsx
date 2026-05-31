@@ -1,0 +1,31 @@
+import Container from "../../components/Container";
+import SiteHeader from "../../components/SiteHeader";
+import SiteFooter from "../../components/SiteFooter";
+import HeroIntro from "./components/showcase/HeroIntro";
+import ProjectShowcase from "./components/showcase/ProjectShowcase";
+import PortfolioErrorBoundary from "./components/showcase/PortfolioErrorBoundary";
+import ContactCTA from "./components/showcase/ContactCTA";
+
+function PortfolioPage() {
+    return <>
+        <SiteHeader />
+
+        <main id="top">
+            <Container className="st:pb-8">
+                <HeroIntro />
+                <div id="work">
+                    <PortfolioErrorBoundary>
+                        <ProjectShowcase />
+                    </PortfolioErrorBoundary>
+                </div>
+                <div id="contact">
+                    <ContactCTA />
+                </div>
+            </Container>
+        </main>
+
+        <SiteFooter />
+    </>;
+}
+
+export default PortfolioPage;
