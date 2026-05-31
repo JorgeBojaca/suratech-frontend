@@ -66,6 +66,11 @@
     color-scheme: dark;
   }
 
+  /* Offset hash-scroll targets so the sticky header (h-14) doesn't cover them. */
+  html {
+    scroll-padding-top: 4rem;
+  }
+
   body {
     background-color: var(--st-color-paper);
     color: var(--st-color-ink);

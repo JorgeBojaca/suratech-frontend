@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import ProjectThumb from './ProjectThumb';
 import ProjectMeta from './ProjectMeta';
 
@@ -19,8 +20,8 @@ function ProjectCard({ project, index }) {
 
   return (
     <li>
-      <a
-        href={`/work/${slug}`}
+      <Link
+        to={`/work/${slug}`}
         className="st:group st:flex st:flex-col st:gap-4 st:rounded-2xl st:p-4 st:transition-colors st:hover:bg-surface st:focus-visible:outline-none st:focus-visible:ring-2 st:focus-visible:ring-accent st:sm:flex-row st:sm:gap-6"
       >
         <div className="st:shrink-0 st:sm:w-[45%]">
@@ -43,7 +44,7 @@ function ProjectCard({ project, index }) {
 
           <ProjectMeta name={name} summary={summary} stack={stack} />
         </div>
-      </a>
+      </Link>
     </li>
   );
 }

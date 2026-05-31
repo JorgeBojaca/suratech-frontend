@@ -1,11 +1,12 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import Container from './Container';
 import ThemeToggle from './ThemeToggle';
 
 const NAV = [
-  { label: 'Work', href: '#work' },
-  { label: 'About', href: '#about' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Work', id: 'work' },
+  { label: 'About', id: 'about' },
+  { label: 'Contact', id: 'contact' },
 ];
 
 const linkClass =
@@ -16,10 +17,10 @@ const linkClass =
  */
 function Brand() {
   return (
-    <a href="#top" className="st:flex st:items-center st:gap-2 st:font-mono st:text-sm st:font-medium st:text-ink">
+    <Link to="/" className="st:flex st:items-center st:gap-2 st:font-mono st:text-sm st:font-medium st:text-ink">
       <span className="st:size-2 st:rounded-full st:bg-accent" aria-hidden="true" />
       JB
-    </a>
+    </Link>
   );
 }
 
@@ -42,9 +43,11 @@ function SiteHeader() {
             {/* Inline nav — sm+ */}
             <nav aria-label="Primary" className="st:hidden st:sm:block">
               <ul className="st:flex st:items-center st:gap-6 st:text-sm">
-                {NAV.map(({ label, href }) => (
+                {NAV.map(({ label, id }) => (
                   <li key={label}>
-                    <a href={href} className={linkClass}>{label}</a>
+                    <Link to={`/#${id}`} className={linkClass}>
+                      {label}
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -87,15 +90,15 @@ function SiteHeader() {
 
           <nav aria-label="Mobile">
             <ul className="st:flex st:flex-col st:gap-6 st:px-5 st:py-10 st:text-3xl st:font-medium st:tracking-tight">
-              {NAV.map(({ label, href }) => (
+              {NAV.map(({ label, id }) => (
                 <li key={label}>
-                  <a
-                    href={href}
+                  <Link
+                    to={`/#${id}`}
                     onClick={() => setOpen(false)}
                     className="st:text-ink st:transition-colors st:hover:text-accent"
                   >
                     {label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>

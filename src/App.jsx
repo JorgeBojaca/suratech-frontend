@@ -1,50 +1,32 @@
-import { useEffect, useState, useRef } from 'react';
-import portfolioService from './features/portfolio/services/portfolioService.js'
-import './App.css'
+import { useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
+import AppRoutes from './features/routes/AppRoutes'
+import './core/theme/index.css'
 
-function App() {
-  const [count, setCount] = useState(0);
-  const [projects, setProjects] = useState([]);
-  const [error, setError] = useState(false);
-
-  const hasFetched = useRef(false);
-
+/**
+ * ScrollToHash — React Router doesn't scroll to URL hashes on navigation, so
+ * we do it: after each location change, scroll the #id element into view.
+ * Works cross-page (e.g. detail → "/#work" mounts home, then scrolls).
+ */
+function ScrollToHash() {
+  const { hash, key } = useLocation()
 
   useEffect(() => {
+    if (!hash) return;
+    console.log({hash, key});
 
-    if (hasFetched.current) return;
+    const el = document.getElementById(hash.slice(1))
+    el?.scrollIntoView({ behavior: 'smooth' })
+  }, [hash, key]) // key changes even when re-navigating to the same hash
 
-    const getProjects = async () => {
-      try {
-        const _projects = await portfolioService.getProjects();
-        setProjects([...projects, ..._projects])
+  return null
+}
 
-      } catch (error) {
-        setError(error);
-      }
-    }
-
-    getProjects();
-
-
-    return () => {
-      hasFetched.current = true;
-    }
-
-  }, []);
-
+function App() {
   return (
     <>
-      <section id="center" className='st:flex'>
-        <div>
-          <h1>Personal Creative Portafolio</h1>
-        </div>
-        {projects.map(project =>
-          (<div key={project.id}>{project.name}</div>)
-        )}
-        {error ? (<div>{error.toString()}</div>) : (<></>)}
-
-      </section>
+      <ScrollToHash />
+      <AppRoutes />
     </>
   )
 }
