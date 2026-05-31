@@ -4,6 +4,7 @@ import SiteFooter from "../../components/SiteFooter";
 import HeroIntro from "./components/showcase/HeroIntro";
 import ProjectShowcase from "./components/showcase/ProjectShowcase";
 import PortfolioErrorBoundary from "./components/showcase/PortfolioErrorBoundary";
+import About from "./components/showcase/About";
 import ContactCTA from "./components/showcase/ContactCTA";
 
 function PortfolioPage() {
@@ -17,6 +18,9 @@ function PortfolioPage() {
                     <PortfolioErrorBoundary>
                         <ProjectShowcase />
                     </PortfolioErrorBoundary>
+                </div>
+                <div id="about" className="st:mt-16 st:sm:mt-20">
+                    <About />
                 </div>
                 <div id="contact">
                     <ContactCTA />
