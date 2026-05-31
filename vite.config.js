@@ -14,5 +14,9 @@ export default defineConfig({
     port: Number(process.env.PORT) || 5180,
     host: true, // bind all interfaces so the preview proxy can reach it
     allowedHosts: true, // accept the preview/tunnel Host header
+    proxy: {
+      '/api': { target: 'http://localhost:1337', changeOrigin: true },
+      '/uploads': { target: 'http://localhost:1337', changeOrigin: true }, // Strapi media
+    }
   },
 })
