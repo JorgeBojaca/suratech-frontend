@@ -1,4 +1,6 @@
+import { Link } from 'react-router-dom';
 import TagList from '../../../../components/TagList';
+import LinkButton from '../../../../components/LinkButton';
 
 /**
  * Breadcrumb — "Work / {name}". Links back to the showcase.
@@ -6,9 +8,9 @@ import TagList from '../../../../components/TagList';
 function Breadcrumb({ name }) {
   return (
     <nav aria-label="Breadcrumb" className="st:font-mono st:text-xs st:text-subtle">
-      <a href="/" className="st:rounded-sm st:transition-colors st:hover:text-ink st:focus-visible:outline-none st:focus-visible:ring-2 st:focus-visible:ring-accent">
+      <Link to="/" className="st:rounded-sm st:transition-colors st:hover:text-ink st:focus-visible:outline-none st:focus-visible:ring-2 st:focus-visible:ring-accent">
         Work
-      </a>
+      </Link>
       <span aria-hidden="true" className="st:px-1.5">/</span>
       <span className="st:text-muted">{name}</span>
     </nav>
@@ -26,28 +28,6 @@ function MetaItem({ label, children }) {
       </dt>
       <dd className="st:text-sm st:text-ink">{children}</dd>
     </div>
-  );
-}
-
-/**
- * ExternalLink — Live / Code link, opens in a new tab, arrow nudges on hover.
- */
-function ExternalLink({ href, children }) {
-  return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="st:group st:inline-flex st:items-center st:gap-1.5 st:rounded-md st:border st:border-line st:px-3 st:py-1.5 st:text-sm st:text-ink st:transition-colors st:hover:bg-surface st:focus-visible:outline-none st:focus-visible:ring-2 st:focus-visible:ring-accent"
-    >
-      {children}
-      <span
-        aria-hidden="true"
-        className="st:transition-transform st:duration-300 st:ease-in-out st:group-hover:-translate-y-0.5 st:group-hover:translate-x-0.5 st:motion-reduce:transform-none"
-      >
-        ↗
-      </span>
-    </a>
   );
 }
 
@@ -95,8 +75,16 @@ function ProjectHeader({ project }) {
 
           {hasLinks && (
             <div className="st:flex st:flex-wrap st:gap-3">
-              {liveUrl && <ExternalLink href={liveUrl}>Live</ExternalLink>}
-              {repoUrl && <ExternalLink href={repoUrl}>Code</ExternalLink>}
+              {liveUrl && (
+                <LinkButton href={liveUrl} variant="secondary" size="sm" external arrow="upRight">
+                  Live
+                </LinkButton>
+              )}
+              {repoUrl && (
+                <LinkButton href={repoUrl} variant="secondary" size="sm" external arrow="upRight">
+                  Code
+                </LinkButton>
+              )}
             </div>
           )}
         </div>
