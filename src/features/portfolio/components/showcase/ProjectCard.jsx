@@ -1,13 +1,14 @@
-import TagList from '../../../../components/TagList';
 import ProjectThumb from './ProjectThumb';
-import ProjectTitle from './ProjectTitle';
-import ProjectSummary from './ProjectSummary';
+import ProjectMeta from './ProjectMeta';
 
 /**
  * ProjectCard — one project in the showcase index.
  * The whole <li><a> is the tap target. Mobile-first: stacked (thumb on top,
  * meta below); at sm+ it goes horizontal (thumb left ~45%, meta right).
  * `group` drives the hover affordances on the thumb, summary, and arrow.
+ *
+ * Content (title/summary/tags) is delegated to ProjectMeta; the index "01"
+ * and ↗ arrow are card chrome and stay here.
  *
  * @param {object} project  shape: { name, slug, summary, stack[], coverUrl }
  * @param {number} index    1-based position, rendered as a mono "01"
@@ -27,13 +28,11 @@ function ProjectCard({ project, index }) {
         </div>
 
         <div className="st:flex st:flex-1 st:flex-col st:gap-2">
+          {/* Card chrome: index + arrow affordance */}
           <div className="st:flex st:items-start st:justify-between st:gap-3">
-            <div className="st:flex st:flex-col st:gap-1">
-              {label && (
-                <span className="st:font-mono st:text-xs st:text-subtle">{label}</span>
-              )}
-              <ProjectTitle>{name}</ProjectTitle>
-            </div>
+            {label && (
+              <span className="st:font-mono st:text-xs st:text-subtle">{label}</span>
+            )}
             <span
               aria-hidden="true"
               className="st:text-lg st:text-muted st:transition-transform st:duration-300 st:ease-in-out st:group-hover:-translate-y-0.5 st:group-hover:translate-x-0.5 st:group-hover:text-ink st:motion-reduce:transform-none"
@@ -42,13 +41,7 @@ function ProjectCard({ project, index }) {
             </span>
           </div>
 
-          <ProjectSummary>{summary}</ProjectSummary>
-
-          {stack?.length > 0 && (
-            <div className="st:mt-2">
-              <TagList tags={stack} />
-            </div>
-          )}
+          <ProjectMeta name={name} summary={summary} stack={stack} />
         </div>
       </a>
     </li>

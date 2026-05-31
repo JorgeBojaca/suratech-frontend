@@ -19,11 +19,14 @@ function ProjectCardSkeleton() {
 
         {/* Meta column */}
         <div className="st:flex st:flex-1 st:flex-col st:gap-2">
-          {/* Index "01" + title */}
-          <div className="st:flex st:flex-col st:gap-1">
+          {/* Chrome: index "01" + arrow */}
+          <div className="st:flex st:items-start st:justify-between st:gap-3">
             <Skeleton className="st:h-3 st:w-6" />
-            <Skeleton className="st:h-8 st:w-3/5" />
+            <Skeleton className="st:size-5" />
           </div>
+
+          {/* Title */}
+          <Skeleton className="st:h-8 st:w-3/5" />
 
           {/* Summary — two bars (100% / 70%) */}
           <Skeleton className="st:h-4 st:w-full" />
