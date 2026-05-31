@@ -6,8 +6,15 @@ import ProjectShowcase from "./components/showcase/ProjectShowcase";
 import PortfolioErrorBoundary from "./components/showcase/PortfolioErrorBoundary";
 import About from "./components/showcase/About";
 import ContactCTA from "./components/showcase/ContactCTA";
+import { useEffect } from "react";
 
 function PortfolioPage() {
+
+    useEffect(() => {
+        const el = document.getElementById('top');
+        el?.scrollIntoView({ behavior: 'smooth' });
+    }, []);
+    
     return <>
         <SiteHeader />
 
