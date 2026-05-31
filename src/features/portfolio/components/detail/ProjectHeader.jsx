@@ -1,0 +1,108 @@
+import TagList from '../../../../components/TagList';
+
+/**
+ * Breadcrumb — "Work / {name}". Links back to the showcase.
+ */
+function Breadcrumb({ name }) {
+  return (
+    <nav aria-label="Breadcrumb" className="st:font-mono st:text-xs st:text-subtle">
+      <a href="/" className="st:rounded-sm st:transition-colors st:hover:text-ink st:focus-visible:outline-none st:focus-visible:ring-2 st:focus-visible:ring-accent">
+        Work
+      </a>
+      <span aria-hidden="true" className="st:px-1.5">/</span>
+      <span className="st:text-muted">{name}</span>
+    </nav>
+  );
+}
+
+/**
+ * MetaItem — a labelled key/value row in the meta bar (rendered as dt/dd).
+ */
+function MetaItem({ label, children }) {
+  return (
+    <div className="st:flex st:flex-col st:gap-1">
+      <dt className="st:font-mono st:text-xs st:uppercase st:tracking-widest st:text-subtle">
+        {label}
+      </dt>
+      <dd className="st:text-sm st:text-ink">{children}</dd>
+    </div>
+  );
+}
+
+/**
+ * ExternalLink — Live / Code link, opens in a new tab, arrow nudges on hover.
+ */
+function ExternalLink({ href, children }) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="st:group st:inline-flex st:items-center st:gap-1.5 st:rounded-md st:border st:border-line st:px-3 st:py-1.5 st:text-sm st:text-ink st:transition-colors st:hover:bg-surface st:focus-visible:outline-none st:focus-visible:ring-2 st:focus-visible:ring-accent"
+    >
+      {children}
+      <span
+        aria-hidden="true"
+        className="st:transition-transform st:duration-300 st:ease-in-out st:group-hover:-translate-y-0.5 st:group-hover:translate-x-0.5 st:motion-reduce:transform-none"
+      >
+        ↗
+      </span>
+    </a>
+  );
+}
+
+/**
+ * ProjectHeader — the detail view's header (spec §2.1/§2.3).
+ * Mobile-first stacked; at lg it splits into title/tagline (left) and a
+ * sticky meta rail (right) that stays pinned while the body scrolls.
+ *
+ * @param {object} project  { name, summary, role, year, stack[], liveUrl, repoUrl }
+ */
+function ProjectHeader({ project }) {
+  const { name, summary, role, year, stack, liveUrl, repoUrl } = project;
+  const hasLinks = liveUrl || repoUrl;
+
+  return (
+    <header className="st:grid st:gap-8 st:lg:grid-cols-[1fr_18rem] st:lg:gap-12">
+      {/* Title block */}
+      <div className="st:flex st:flex-col st:gap-4">
+        <Breadcrumb name={name} />
+        <h1 className="st:text-5xl st:font-medium st:leading-tight st:tracking-tight st:text-balance st:text-ink st:lg:text-6xl">
+          {name}
+        </h1>
+        {summary && (
+          <p className="st:max-w-prose st:text-lg st:text-muted">{summary}</p>
+        )}
+      </div>
+
+      {/* Meta rail — sticky at lg */}
+      <aside className="st:self-start st:lg:sticky st:lg:top-24">
+        <div className="st:flex st:flex-col st:gap-4 st:border-t st:border-line st:py-4 st:lg:border-t-0 st:lg:py-0">
+          <dl className="st:flex st:flex-col st:gap-4">
+            {role && <MetaItem label="Role">{role}</MetaItem>}
+            {year && <MetaItem label="Year">{year}</MetaItem>}
+            {stack?.length > 0 && (
+              <div className="st:flex st:flex-col st:gap-2">
+                <dt className="st:font-mono st:text-xs st:uppercase st:tracking-widest st:text-subtle">
+                  Stack
+                </dt>
+                <dd>
+                  <TagList tags={stack} />
+                </dd>
+              </div>
+            )}
+          </dl>
+
+          {hasLinks && (
+            <div className="st:flex st:flex-wrap st:gap-3">
+              {liveUrl && <ExternalLink href={liveUrl}>Live</ExternalLink>}
+              {repoUrl && <ExternalLink href={repoUrl}>Code</ExternalLink>}
+            </div>
+          )}
+        </div>
+      </aside>
+    </header>
+  );
+}
+
+export default ProjectHeader;
