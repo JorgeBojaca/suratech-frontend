@@ -26,6 +26,9 @@ dist-ssr
 coverage/
 *.lcov
 
+# Claude Code preview launch config (machine-local; recreated on demand)
+.claude/launch.json
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
