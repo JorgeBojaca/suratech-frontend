@@ -1,5 +1,17 @@
-import CTAHeadline from './CTAHeadline';
 import MailtoButton from './MailtoButton';
+
+/**
+ * CTAHeadline — oversized closing headline (spec §1.2).
+ * Local to ContactCTA (single-use, no logic) — module scope so it keeps a
+ * stable identity across renders. text-4xl → text-6xl at lg.
+ */
+function CTAHeadline({ children }) {
+  return (
+    <h2 className="st:text-4xl st:font-medium st:tracking-tight st:text-balance st:text-ink st:lg:text-6xl">
+      {children}
+    </h2>
+  );
+}
 
 /**
  * ContactCTA — closing call-to-action band (spec §1.1/§1.3).
