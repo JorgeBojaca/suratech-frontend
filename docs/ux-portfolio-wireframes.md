@@ -105,6 +105,10 @@ src/
 │  │        │  └─ <TagList><Tag/>…</TagList>
 │  │        └─ <ArrowAffordance />      ← "↗" view detail
 │  │
+│  ├─ <About>                           ← short bio (nav: About → #about)
+│  │  ├─ <SectionLabel />               ← "About"
+│  │  └─ <RichText />                   ← prose, max-w-prose
+│  │
 │  └─ <ContactCTA>                      ← closing call-to-action band
 │     ├─ <CTAHeadline />
 │     └─ <MailtoButton />

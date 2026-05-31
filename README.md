@@ -5,7 +5,7 @@ A high-end, minimalist personal creative portfolio. A curated showcase of work
 
 **Stack:** React 19 · Tailwind CSS v4 · Vite · feature-driven architecture.
 
-The full UX spec lives in [`docs/ux-wireframes.md`](docs/ux-wireframes.md).
+The full UX spec lives in [`docs/ux-portfolio-wireframes.md`](docs/ux-portfolio-wireframes.md).
 
 ## Getting started
 
