@@ -25,14 +25,11 @@ import ProjectPager from "./components/detail/ProjectPager";
  */
 function ProjectDetailPage() {
     const { slug } = useParams();
-    const { project, isLoading, isError, isNotFound, refetch } = useProject();
+    const { project, isLoading, isError, isNotFound, refetch } = useProject(slug);
 
     useEffect(() => {
         const el = document.getElementById('top');
-        el?.scrollIntoView({ behavior: 'smooth' })
-        refetch(slug);
-        // refetch identity is stable enough for the mock; re-run on slug change.
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        el?.scrollIntoView({ behavior: 'smooth' });
     }, [slug]);
 
     return (
@@ -41,14 +38,14 @@ function ProjectDetailPage() {
 
             <main id='top'>
                 <Container className="st:py-12">
-                    <DetailErrorBoundary onReset={() => refetch(slug)}>
+                    <DetailErrorBoundary onReset={refetch}>
                         <article className="st:flex st:flex-col st:gap-16 st:sm:gap-20">
                             {isLoading ? (
                                 <ProjectDetailSkeleton />
                             ) : isNotFound ? (
                                 <DetailErrorState variant="notFound" />
                             ) : isError ? (
-                                <DetailErrorState variant="error" onRetry={() => refetch(slug)} />
+                                <DetailErrorState variant="error" onRetry={refetch} />
                             ) : project ? (
                                 <>
                                     <ProjectHeader project={project} />
