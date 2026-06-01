@@ -3,7 +3,7 @@
 A high-end, minimalist personal creative portfolio. A curated showcase of work
 (Home) plus focused per-project case studies, served by a Strapi backend.
 
-**Stack:** React 19 · Tailwind CSS v4 · Vite · feature-driven architecture.
+**Stack:** React 19 · Tailwind CSS v4 · Vite · React Router · Vitest · feature-driven architecture.
 
 The full UX spec lives in [`docs/ux-portfolio-wireframes.md`](docs/ux-portfolio-wireframes.md).
 
@@ -26,6 +26,8 @@ The app expects a Strapi API. By default it points at `http://localhost:1337`
 | `npm run build`   | Production build to `dist/`              |
 | `npm run preview` | Serve the production build locally       |
 | `npm run lint`    | Run ESLint over the project              |
+| `npm test`        | Run the unit tests once (Vitest)         |
+| `npm run test:watch` | Run Vitest in watch mode              |
 
 ## Configuration
 
@@ -67,6 +69,39 @@ src/
 ```js
 { id, name, slug, summary, role, year, stack[], coverUrl, gallery[], liveUrl, repoUrl, body }
 ```
+
+## Testing
+
+Unit tests run on **Vitest** with **React Testing Library** in a **jsdom**
+environment. Vitest reuses the Vite pipeline, so there's no separate test
+build config.
+
+```bash
+npm test            # run once (CI-style)
+npm run test:watch  # re-run on change
+```
+
+**Configuration** lives in the `test` block of [`vite.config.js`](vite.config.js):
+
+| Option | Value | Why |
+| ------ | ----- | --- |
+| `environment` | `jsdom` | DOM APIs for `renderHook` / component tests |
+| `clearMocks`  | `true` | reset mock call data between tests for isolation |
+
+The config import is `defineConfig` from `vitest/config` (a superset of
+Vite's), and ESLint applies Node globals to `*.config.js`.
+
+**Conventions**
+
+- **Co-location:** a unit's test is its `*.test.jsx` sibling in the same folder
+  (e.g. [`hooks/useProject.test.jsx`](src/features/portfolio/hooks/useProject.test.jsx)).
+  Vitest auto-discovers `**/*.{test,spec}.{js,jsx}` under `src/`.
+- **Mock the boundary, not the unit:** mock the data layer with `vi.mock`
+  (e.g. `portfolioService`) and assert the hook/component logic in isolation —
+  no network calls. Each test supplies its own minimal return shapes rather
+  than relying on a shared data fixture.
+- **Async hooks:** drive them with `renderHook` + `waitFor`; wrap imperative
+  calls (e.g. `refetch`) in `act`.
 
 ## Conventions
 
