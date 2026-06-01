@@ -13,8 +13,7 @@ function ScrollToHash() {
 
   useEffect(() => {
     if (!hash) return;
-    console.log({hash, key});
-
+    
     const el = document.getElementById(hash.slice(1))
     el?.scrollIntoView({ behavior: 'smooth' })
   }, [hash, key]) // key changes even when re-navigating to the same hash
