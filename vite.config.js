@@ -1,4 +1,5 @@
-import { defineConfig } from 'vite'
+/// <reference types="vitest/config" />
+import { defineConfig } from 'vitest/config'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 
@@ -18,5 +19,9 @@ export default defineConfig({
       '/api': { target: 'http://localhost:1337', changeOrigin: true },
       '/uploads': { target: 'http://localhost:1337', changeOrigin: true }, // Strapi media
     }
+  },
+  test: {
+    environment: 'jsdom', // DOM APIs for renderHook / Testing Library
+    clearMocks: true,     // reset mock call data between tests
   },
 })
