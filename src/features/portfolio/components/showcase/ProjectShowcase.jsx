@@ -13,7 +13,7 @@ import EmptyState from './EmptyState';
  * section stays identifiable.
  */
 function ProjectShowcase() {
-  const { projects, isLoading, isError, isEmpty, refetch } = useProjects();
+  const { projects, isLoading, isFetchingMore, isError, isEmpty, hasMore, loadMore, refetch } = useProjects();
 
   return (
     <section aria-labelledby="selected-work">
@@ -27,7 +27,12 @@ function ProjectShowcase() {
         ) : isEmpty ? (
           <EmptyState />
         ) : (
-          <ProjectList projects={projects} />
+          <ProjectList
+            projects={projects}
+            onLoadMore={loadMore}
+            hasMore={hasMore}
+            isFetchingMore={isFetchingMore}
+          />
         )}
       </div>
     </section>
