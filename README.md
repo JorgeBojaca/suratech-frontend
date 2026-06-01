@@ -7,6 +7,16 @@ A high-end, minimalist personal creative portfolio. A curated showcase of work
 
 The full UX spec lives in [`docs/ux-portfolio-wireframes.md`](docs/ux-portfolio-wireframes.md).
 
+## Related Projects
+
+### Backend API
+
+This frontend consumes data from a separate Strapi backend:
+
+- Backend repository: https://github.com/JorgeBojaca/suratech-backend
+
+Refer to the backend README for setup instructions and content management details.
+
 ## Getting started
 
 ```bash
