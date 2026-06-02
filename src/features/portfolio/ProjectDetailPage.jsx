@@ -21,7 +21,7 @@ import ProjectPager from "./components/detail/ProjectPager";
  * wrapped in DetailErrorBoundary so a render crash never takes down the
  * shared header/footer.
  *
- * The project slug comes from the /work/:slug route param.
+ * The project slug comes from the /portfolio/work/:slug route param.
  */
 function ProjectDetailPage() {
     const { slug } = useParams();

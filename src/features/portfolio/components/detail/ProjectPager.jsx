@@ -14,7 +14,7 @@ function PagerLink({ dir, project }) {
 
   return (
     <Link
-      to={`/work/${project.slug}`}
+      to={`/portfolio/work/${project.slug}`}
       className={`st:group st:flex st:flex-col st:gap-1 st:rounded-md st:focus-visible:outline-none st:focus-visible:ring-2 st:focus-visible:ring-accent ${isPrev ? 'st:items-start' : 'st:items-end st:text-right'}`}
     >
       <span

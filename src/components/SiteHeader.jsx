@@ -13,11 +13,11 @@ const linkClass =
   'st:rounded-sm st:text-muted st:transition-colors st:hover:text-ink st:focus-visible:outline-none st:focus-visible:ring-2 st:focus-visible:ring-accent';
 
 /**
- * Brand — logomark + name, links to top of page.
+ * Brand — logomark + name, links to the portfolio home.
  */
-function Brand() {
+function Brand({ type }) {
   return (
-    <Link to="/" className="st:flex st:items-center st:gap-2 st:font-mono st:text-sm st:font-medium st:text-ink">
+    <Link to={`/${type}`} className="st:flex st:items-center st:gap-2 st:font-mono st:text-sm st:font-medium st:text-ink">
       <span className="st:size-2 st:rounded-full st:bg-accent" aria-hidden="true" />
       JB
     </Link>
@@ -30,26 +30,31 @@ function Brand() {
  * full-screen overlay. Sticky with a translucent blurred background and a
  * hairline bottom border. The theme toggle lives in the header on all sizes.
  */
-function SiteHeader() {
+function SiteHeader({ type = 'portfolio' }) {
   const [open, setOpen] = useState(false);
 
   return (
     <>
       <header className="st:sticky st:top-0 st:z-40 st:border-b st:border-line st:bg-paper/80 st:backdrop-blur">
         <Container className="st:flex st:h-14 st:items-center st:justify-between">
-          <Brand />
+          <Brand type={type} />
 
           <div className="st:flex st:items-center st:gap-4">
             {/* Inline nav — sm+ */}
             <nav aria-label="Primary" className="st:hidden st:sm:block">
               <ul className="st:flex st:items-center st:gap-6 st:text-sm">
-                {NAV.map(({ label, id }) => (
+                {type === 'portfolio' && NAV.map(({ label, id }) => (
                   <li key={label}>
-                    <Link to={`/#${id}`} className={linkClass}>
+                    <Link to={`/portfolio#${id}`} className={linkClass}>
                       {label}
                     </Link>
                   </li>
                 ))}
+                <li>
+                  <Link to='/' className={linkClass}>
+                    Launcher
+                  </Link>
+                </li>
               </ul>
             </nav>
 
@@ -90,10 +95,10 @@ function SiteHeader() {
 
           <nav aria-label="Mobile">
             <ul className="st:flex st:flex-col st:gap-6 st:px-5 st:py-10 st:text-3xl st:font-medium st:tracking-tight">
-              {NAV.map(({ label, id }) => (
+              {type === 'portfolio' && NAV.map(({ label, id }) => (
                 <li key={label}>
                   <Link
-                    to={`/#${id}`}
+                    to={`/portfolio#${id}`}
                     onClick={() => setOpen(false)}
                     className="st:text-ink st:transition-colors st:hover:text-accent"
                   >
@@ -101,6 +106,11 @@ function SiteHeader() {
                   </Link>
                 </li>
               ))}
+              <li>
+                <Link to='/' className={linkClass}>
+                  Launcher
+                </Link>
+              </li>
             </ul>
           </nav>
         </div>

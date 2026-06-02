@@ -7,7 +7,7 @@ import portfolioService from "../services/portfolioService";
  * rapid project switching never leaves a slow earlier response to overwrite
  * the current one. Distinguishes not-found (empty result) from error.
  *
- * @param {string} slug  from the /work/:slug route param
+ * @param {string} slug  from the /portfolio/work/:slug route param
  */
 function useProject(slug) {
   const [project, setProject] = useState(null);

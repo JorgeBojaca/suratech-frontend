@@ -21,7 +21,7 @@ function ProjectCard({ project, index }) {
   return (
     <li>
       <Link
-        to={`/work/${slug}`}
+        to={`/portfolio/work/${slug}`}
         className="st:group st:flex st:flex-col st:gap-4 st:rounded-2xl st:p-4 st:transition-colors st:hover:bg-surface st:focus-visible:outline-none st:focus-visible:ring-2 st:focus-visible:ring-accent st:sm:flex-row st:sm:gap-6"
       >
         <div className="st:shrink-0 st:sm:w-[45%]">

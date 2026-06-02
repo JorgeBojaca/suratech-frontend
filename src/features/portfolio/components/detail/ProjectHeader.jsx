@@ -8,7 +8,7 @@ import LinkButton from '../../../../components/LinkButton';
 function Breadcrumb({ name }) {
   return (
     <nav aria-label="Breadcrumb" className="st:font-mono st:text-xs st:text-subtle">
-      <Link to="/" className="st:rounded-sm st:transition-colors st:hover:text-ink st:focus-visible:outline-none st:focus-visible:ring-2 st:focus-visible:ring-accent">
+      <Link to="/portfolio" className="st:rounded-sm st:transition-colors st:hover:text-ink st:focus-visible:outline-none st:focus-visible:ring-2 st:focus-visible:ring-accent">
         Work
       </Link>
       <span aria-hidden="true" className="st:px-1.5">/</span>
