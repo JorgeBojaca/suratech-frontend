@@ -5,7 +5,8 @@ A high-end, minimalist personal creative portfolio. A curated showcase of work
 
 **Stack:** React 19 · Tailwind CSS v4 · Vite · React Router · Vitest · feature-driven architecture.
 
-The full UX spec lives in [`docs/ux-portfolio-wireframes.md`](docs/ux-portfolio-wireframes.md).
+The full UX specs live in [`docs/ux-portfolio-wireframes.md`](docs/ux-portfolio-wireframes.md)
+and [`docs/ux-product-catalog-wireframes.md`](docs/ux-product-catalog-wireframes.md).
 
 ## Related Projects
 
@@ -59,17 +60,26 @@ Feature-driven: cross-cutting primitives live under `src/core` and
 ```
 src/
 ├─ core/
-│  ├─ config/        # env / API base URL
+│  ├─ config/        # env / API base URLs (Strapi + catalog)
+│  ├─ http/          # requestJSON wrapper + ErrorKind taxonomy (4xx/5xx/network)
 │  └─ theme/         # Tailwind v4 @theme tokens (single source of truth)
 ├─ components/       # shared primitives (Button, Tag, Skeleton, …)
 └─ features/
    ├─ routes/        # route table → maps paths to feature pages
-   └─ portfolio/
-      ├─ PortfolioPage.jsx       # Showcase (Home)
-      ├─ ProjectDetailPage.jsx   # Project detail
-      ├─ components/             # showcase/ and detail/ presentational components
-      ├─ hooks/                  # useProjects, useProject
-      └─ services/               # portfolioService — Strapi fetch layer
+   ├─ launcher/      # "/" — shell to choose a micro-frontend (portfolio / catalog)
+   ├─ portfolio/     # "/portfolio" — showcase + per-project case studies
+   │  ├─ PortfolioPage.jsx       # Showcase (Home)
+   │  ├─ ProjectDetailPage.jsx   # Project detail
+   │  ├─ components/             # showcase/ and detail/ presentational components
+   │  ├─ hooks/                  # useProjects, useProject
+   │  └─ services/               # portfolioService — Strapi fetch layer
+   └─ product-catalog/  # "/catalog" — product list (Fake Store API + Strapi content)
+      ├─ CatalogPage.jsx         # route entry + feedback shell
+      ├─ components/             # hero, list, rows, skeletons, states, boundary
+      ├─ hooks/                  # useProducts, useCatalogPage
+      ├─ services/               # productsService (API), catalogService (Strapi)
+      ├─ feedback/               # toast provider, useNotify, offline banner
+      └─ productErrorCopy.js     # ErrorKind → customer-facing messages
 ```
 
 ### Data contract
@@ -121,7 +131,7 @@ Vite's), and ESLint applies Node globals to `*.config.js`.
 - **Theme tokens** in `src/core/theme/` are the single source of truth —
   components never hardcode color values.
 
-## AI Contribution
+## Exercise 01 AI Contribution
 AI was used as a collaborative development assistant throughout this project.
 
 The process began with Claude Code generating a detailed [`UX specification document`](docs/ux-portfolio-wireframes.md), including mobile-first wireframes, component hierarchy, responsive behavior, and interaction states. This provided a clear blueprint for the implementation.
@@ -129,3 +139,16 @@ The process began with Claude Code generating a detailed [`UX specification docu
 I then developed the application incrementally, creating the routing structure, custom hooks, and core application logic. Throughout the implementation, I used AI as a coworker to review ideas, suggest improvements, refine React components, and enhance the Tailwind CSS implementation. The most valuable contribution was accelerating the creation of responsive layouts and helping improve the overall UI quality.
 
 Development followed an iterative workflow where changes were implemented in small, testable steps. AI-generated suggestions were evaluated through testing and adjusted when necessary. While AI contributed significantly to design refinement and implementation speed, the project’s architecture, custom hooks, business logic, and final technical decisions were driven by me.
+
+
+## Exercise 02 AI Assistance
+
+AI was used as a collaborative development assistant throughout this exercise.
+
+To accelerate the design phase, I reused the context established during Exercise 1. Existing UX discussions, design patterns, and component conventions allowed Claude Code to generate wireframes and UI scaffolding more efficiently.
+
+My primary focus was the application logic. The Fake Store API integration, custom hooks, and error-handling strategy were implemented manually, including support for 4xx, 5xx, and network errors.
+
+After the initial implementation, I used Claude Code as a code-review partner to identify improvements and refactoring opportunities. Selected suggestions were applied to reduce duplication (DRY) and improve maintainability.
+
+While AI contributed to the UX design, component scaffolding, and code review process, the API integration, error handling, architecture, and final technical decisions were implemented and validated by me.
